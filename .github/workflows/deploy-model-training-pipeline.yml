@@ -17,14 +17,17 @@ jobs:
     uses: Azure/mlops-templates/.github/workflows/read-yaml.yml@mailn
     with:
       file_name: config-infra-prod.yml
-
+    
   create-compute:
     needs: get-config
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Train Model
-        run: |
-          python train_model.py
+    uses: ./.github/workflows/deploy-model-training-pipeline.yml
+    with:
+      cluster_name: cpu_cluster
+      size: Standard_DS11_v2
+      min_instance: 0
+      max_instance: 1
+      cluster_tier: dedicated
+      resource_group: default_resource_group
+      workspace_name: FitwellWorkspace
+    secrets:
+      creds: ${{ secrets.AZURE_CREDENTIALS }}
