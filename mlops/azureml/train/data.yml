@@ -1,4 +1,4 @@
-schema: https://azuremlschemas.azureedge.net/latest/data.schema.json
+$schema: https://azuremlschemas.azureedge.net/latest/data.schema.json
 
 type: uri_file
 name: used-cars-data # Provide the name for the dataset, related to used cars
