@@ -1,4 +1,4 @@
-name: cli-jobs-pipelines-autompg
+name: MLOps-Pipeline-For-Car-Pricing
 on:
   push:
   pull_request:
