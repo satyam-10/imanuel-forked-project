@@ -51,10 +51,16 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-  get-config: 
-    uses: Azure/mlops-templates/.github/workflows/read-yaml.yml@main
-    with:
-      file_name: config-infra-prod.yml
+  get-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Read YAML Config
+        run: |
+          pip install pyyaml
+          python read-yaml-script.py config-infra-prod.yml
     
   create-compute:
     needs: get-config
