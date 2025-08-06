@@ -46,7 +46,7 @@ jobs:
       cluster_name: cpu_cluster
       size: Standard_DS11_v2
       min_instance: 0
-      max_instance: 1
+      max_instances: 1
       cluster_tier: dedicated
       resource_group: ${{needs.getconfig.outputs.resource_group}}
       workspace_name: ${{needs.getconfig.outputs.aml_workspace}}
