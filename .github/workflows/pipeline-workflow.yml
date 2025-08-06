@@ -94,8 +94,8 @@ jobs:
     with:
       resource_group: ${{needs.getconfig.outputs.resource_group}}
       workspace_name: ${{needs.getconfig.outputs.aml_workspace}}
-      endpoint_file: mlops/azureml/deploy/online/online-endpoint.yml
-      endpoint_name: used-car-price-endpoint
+      endpoint_file: mlops/azureml/deploy/online/online-deployment.yml
+      deployment_name: used-car-price-deployment
       endpoint_type: online
     secrets:
       creds: ${{ secrets.AZURE_CREDENTIALS }}
