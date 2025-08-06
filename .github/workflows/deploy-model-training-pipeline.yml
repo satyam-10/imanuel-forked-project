@@ -60,7 +60,7 @@ jobs:
       - name: Read YAML Config
         run: |
           pip install pyyaml
-          python read-yaml-script.py config-infra-prod.yml
+          python ./.github/scripts/read-yaml-script.py config-infra-prod.yml
     
   create-compute:
     needs: get-config
