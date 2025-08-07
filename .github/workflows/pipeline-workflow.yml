@@ -10,7 +10,16 @@ on:
   workflow_dispatch: # Allow manual triggers
 
 jobs:
-  
+
+
+  test-login:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Azure Login Test
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
   get-config:
      uses: Azure/mlops-templates/.github/workflows/read-yaml.yml@main
      with: 
