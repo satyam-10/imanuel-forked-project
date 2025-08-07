@@ -15,10 +15,13 @@ jobs:
   test-login:
     runs-on: ubuntu-latest
     steps:
-    - name: Azure Login Test
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Show Logged In Subscription
+        run: az account show
           
   get-config:
      uses: Azure/mlops-templates/.github/workflows/read-yaml.yml@main
