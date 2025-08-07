@@ -25,7 +25,7 @@ jobs:
       environment_file: mlops/azureml/train/train-env.yml
       conda_file: data-science/environment/train-conda.yml
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS}}
+      creds: ${{secrets.AZURE_CREDENTIALS_2}}
 
 
   register-dataset:
@@ -51,7 +51,7 @@ jobs:
       resource_group: ${{needs.getconfig.outputs.resource_group}}
       workspace_name: ${{needs.getconfig.outputs.aml_workspace}}
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS}}
+      creds: ${{secrets.AZURE_CREDENTIALS_2}}
 
   run-pipeline:
     needs: [get-config,register-environment,create-compute,register-dataset]
@@ -62,7 +62,7 @@ jobs:
       parameters-file: mlops/azureml/train/pipeline.yml
       job-name: test
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS}}
+      creds: ${{secrets.AZURE_CREDENTIALS_2}}
 
   register-environment-deploy:
     needs: get-config
@@ -73,7 +73,7 @@ jobs:
       environment_file: mlops/azureml/deploy/online/deploy-env.yml
       conda_file: data-science/environment/deploy-conda.yml
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS}}
+      creds: ${{secrets.AZURE_CREDENTIALS_2}}
 
 
   create-endpoint:
@@ -86,7 +86,7 @@ jobs:
       endpoint_name: used-car-price-endpoint
       endpoint_type: online
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS}}
+      creds: ${{secrets.AZURE_CREDENTIALS_2}}
 
   create-deployment:
     uses: Azure/mlops-templates/.github/workflows/create-deployment.yml@main
@@ -99,7 +99,7 @@ jobs:
       deployment_name: used-car-price-deployment
       endpoint_type: online
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS}}
+      creds: ${{secrets.AZURE_CREDENTIALS_2}}
 
   allocate-traffic:
     uses: Azure/mlops-templates/.github/workflows/allocate-traffic.yml@main
@@ -110,5 +110,5 @@ jobs:
       traffic_allocation: used-car-price-online-dp=100
       endpoint_name: used-car-price-endpoint
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS}}
+      creds: ${{secrets.AZURE_CREDENTIALS_2}}
    
