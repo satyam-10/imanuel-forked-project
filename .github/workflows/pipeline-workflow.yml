@@ -24,13 +24,13 @@ jobs:
         run: az account show
           
   get-config:
-     uses: Azure/mlops-templates/.github/workflows/read-yaml.yml@main
+     uses: imanuelsammeta/mlops-templates/.github/workflows/read-yaml.yml@main
      with: 
         file_name: config-infra-prod.yml
 
   register-environment:
     needs: get-config
-    uses: Azure/mlops-templates/.github/workflows/register-environment.yml@main
+    uses: imanuelsammeta/mlops-templates/.github/workflows/register-environment.yml@main
     with:
       resource_group: ${{needs.get-config.outputs.resource_group}}
       workspace_name: ${{needs.get-config.outputs.aml_workspace}}
@@ -42,7 +42,7 @@ jobs:
 
   register-dataset:
     needs: get-config
-    uses: Azure/mlops-templates/.github/workflows/register-dataset.yml@main
+    uses: imanuelsammeta/mlops-templates/.github/workflows/register-dataset.yml@main
     with:
       resource_group: ${{needs.get-config.outputs.resource_group}}
       workspace_name: ${{needs.get-config.outputs.aml_workspace}}
@@ -53,7 +53,7 @@ jobs:
     
   create-compute:
     needs: [get-config,register-environment,register-dataset]
-    uses: Azure/mlops-templates/.github/workflows/create-compute.yml@main
+    uses: imanuelsammeta/mlops-templates/.github/workflows/create-compute.yml@main
     with:
       cluster_name: cpu_cluster
       size: Standard_DS11_v2
@@ -67,7 +67,7 @@ jobs:
 
   run-pipeline:
     needs: [get-config,register-environment,create-compute,register-dataset]
-    uses: Azure/mlops-templates/.github/workflows/run-pipeline.yml@main
+    uses: imanuelsammeta/mlops-templates/.github/workflows/run-pipeline.yml@main
     with:
       resource_group: ${{needs.get-config.outputs.resource_group}}
       workspace_name: ${{needs.get-config.outputs.aml_workspace}}
@@ -78,7 +78,7 @@ jobs:
 
   register-environment-deploy:
     needs: get-config
-    uses: Azure/mlops-templates/.github/workflows/register-environment.yml@main
+    uses: imanuelsammeta/mlops-templates/.github/workflows/register-environment.yml@main
     with:
       resource_group: ${{needs.get-config.outputs.resource_group}}
       workspace_name: ${{needs.get-config.outputs.aml_workspace}}
@@ -90,7 +90,7 @@ jobs:
 
   create-endpoint:
     needs: [get-config,run-pipeline]
-    uses: Azure/mlops-templates/.github/workflows/create-endpoint.yml@main
+    uses: imanuelsammeta/mlops-templates/.github/workflows/create-endpoint.yml@main
     with:
       resource_group: ${{needs.get-config.outputs.resource_group}}
       workspace_name: ${{needs.get-config.outputs.aml_workspace}}
@@ -101,7 +101,7 @@ jobs:
       creds: ${{secrets.AZURE_CREDENTIALS_2}}
 
   create-deployment:
-    uses: Azure/mlops-templates/.github/workflows/create-deployment.yml@main
+    uses: imanuelsammeta/mlops-templates/.github/workflows/create-deployment.yml@main
     needs: [get-config,register-environment-deploy,create-endpoint]
     with:
       resource_group: ${{needs.get-config.outputs.resource_group}}
@@ -114,7 +114,7 @@ jobs:
       creds: ${{secrets.AZURE_CREDENTIALS_2}}
 
   allocate-traffic:
-    uses: Azure/mlops-templates/.github/workflows/allocate-traffic.yml@main
+    uses: imanuelsammeta/mlops-templates/.github/workflows/allocate-traffic.yml@main
     needs: [get-config,create-deployment]
     with:
       resource_group: ${{needs.get-config.outputs.resource_group}}
