@@ -27,6 +27,7 @@ jobs:
      uses: Azure/mlops-templates/.github/workflows/read-yaml.yml@main
      with: 
         file_name: config-infra-prod.yml
+        creds: ${{secrets.AZURE_CREDENTIALS_2}}
 
   register-environment:
     needs: get-config
