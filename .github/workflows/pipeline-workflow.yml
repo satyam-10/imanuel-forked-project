@@ -18,7 +18,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{secrets.AZURE_CREDENTIALS_2}}
+          creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
 
       - name: Show Logged In Subscription
         run: az account show
@@ -37,10 +37,7 @@ jobs:
       environment_file: mlops/azureml/train/train-env.yml
       conda_file: data-science/environment/train-conda.yml
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS_2}}
-      client-id: ${{ secrets.AZURE_CLIENT_ID }}
-      tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-      subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
 
   register-dataset:
     needs: get-config
@@ -51,7 +48,7 @@ jobs:
       name: used-cars-data
       data_file: mlops/azureml/train/data.yml
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS_2}}
+      creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
     
   create-compute:
     needs: [get-config,register-environment,register-dataset]
@@ -65,7 +62,7 @@ jobs:
       resource_group: ${{needs.get-config.outputs.resource_group}}
       workspace_name: ${{needs.get-config.outputs.aml_workspace}}
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS_2}}
+      creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
 
   run-pipeline:
     needs: [get-config,register-environment,create-compute,register-dataset]
@@ -76,7 +73,7 @@ jobs:
       parameters-file: mlops/azureml/train/pipeline.yml
       job-name: test
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS_2}}
+      creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
 
   register-environment-deploy:
     needs: get-config
@@ -87,7 +84,7 @@ jobs:
       environment_file: mlops/azureml/deploy/online/deploy-env.yml
       conda_file: data-science/environment/deploy-conda.yml
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS_2}}
+      creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
 
 
   create-endpoint:
@@ -100,7 +97,7 @@ jobs:
       endpoint_name: used-car-price-endpoint
       endpoint_type: online
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS_2}}
+      creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
 
   create-deployment:
     uses: imanuelsammeta/mlops-templates/.github/workflows/create-deployment.yml@main
@@ -113,7 +110,7 @@ jobs:
       deployment_name: used-car-price-deployment
       endpoint_type: online
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS_2}}
+      creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
 
   allocate-traffic:
     uses: imanuelsammeta/mlops-templates/.github/workflows/allocate-traffic.yml@main
@@ -124,5 +121,4 @@ jobs:
       traffic_allocation: used-car-price-online-dp=100
       endpoint_name: used-car-price-endpoint
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS_2}}
-   
+      creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
