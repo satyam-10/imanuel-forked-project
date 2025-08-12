@@ -20,7 +20,8 @@ def parse_args():
     parser.add_argument("--train_data", type=str, help="Path to train dataset")  # Specify the type for train data (str)
     parser.add_argument("--test_data", type=str, help="Path to test dataset")  # Specify the type for test data (str)
     parser.add_argument("--test_train_ratio", type=float, default=0.2, help="Test-train ratio")  # Specify the type (float) and default value (0.2) for test-train ratio
-    args = parser.parse_args()
+    # args = parser.parse_args()
+    args = parse_args()
 
     return args
 
