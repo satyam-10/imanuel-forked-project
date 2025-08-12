@@ -24,7 +24,8 @@ def parse_args():
     parser.add_argument('--max_depth', type=int, default=None,
                         help='The maximum depth of the tree')  # Specify the type and default value for max_depth
 
-    args = parser.parse_args()
+    # args = parser.parse_args()
+    args = parse_args()
 
     return args
 
