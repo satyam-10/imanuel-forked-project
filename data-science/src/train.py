@@ -15,7 +15,7 @@ import mlflow.sklearn
 def parse_args():
     '''Parse input arguments'''
 
-    parser = argparse.ArgumentParser("train")
+    parser = argparse.ArgumentParser()
     parser.add_argument("--train_data", type=str, help="Path to train dataset")  # Specify the type for train_data
     parser.add_argument("--test_data", type=str, help="Path to test dataset")  # Specify the type for test_data
     parser.add_argument("--model_output", type=str, help="Path of output model")  # Specify the type for model_output
@@ -24,8 +24,7 @@ def parse_args():
     parser.add_argument('--max_depth', type=int, default=None,
                         help='The maximum depth of the tree')  # Specify the type and default value for max_depth
 
-    # args = parser.parse_args()
-    args = parse_args()
+    args = parser.parse_args()
 
     return args
 
