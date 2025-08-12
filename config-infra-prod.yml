@@ -20,7 +20,3 @@ variables:
   # For pipeline reference
   resource_group: default_resource_group
   aml_workspace: FitwellWorkspace
-  application_insights: fitwellworkspa2102931028
-  key_vault: fitwellworkspa3632316330
-  container_registry: 34654afcd50f4b2f97a0dc312da94dff
-  storage_account: fitwellworkspa3991914525
