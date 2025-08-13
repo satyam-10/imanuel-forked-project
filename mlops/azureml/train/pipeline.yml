@@ -78,7 +78,7 @@ jobs:
       --model_info_output_path ${{outputs.model_info_output_path}}
     environment: azureml:used-car-train-env@latest
     inputs:
-      model_name: "used_car_price_prediction_model"
+      model_name: "used-car-price-model"
       model_path: ${{parent.jobs.sweep_step.outputs.model_output}}
     outputs:
       model_info_output_path: ${{parent.outputs.model_info_output_path}}
