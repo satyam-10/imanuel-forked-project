@@ -32,8 +32,8 @@ def main(args):  # Write the function name for the main data preparation logic
 
     # Encode categorical feature
     le = LabelEncoder()
-    # df['Segment'] = le.fit_transform(df['Segment'])  # Write code to encode the categorical feature
-    df['Type'] = le.fit_transform(df['Type'])  # Write code to encode the categorical feature
+    df['Segment'] = le.fit_transform(df['Segment'])  # Write code to encode the categorical feature
+    # df['Type'] = le.fit_transform(df['Type'])  # Write code to encode the categorical feature
 
     # Split Data into train and test datasets
     train_df, test_df = train_test_split(df, test_size=args.test_train_ratio, random_state=42)  #  Write code to split the data into train and test datasets
