@@ -14,7 +14,7 @@ def init():
 global model
 
 model_path = os.path.join(
-  os.getenv("AZUREML_MODEL_DIR"), "car-price-model/model.pkl"
+  os.getenv("AZUREML_MODEL_DIR"), "used-cars-price-model/model.pkl"
 )
 
 model = joblib.load(model_path)
