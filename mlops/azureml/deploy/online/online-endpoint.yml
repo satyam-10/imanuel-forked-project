@@ -1,4 +1,4 @@
 $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineEndpoint.schema.json
-name: used-car-prices-deploy-env
+name: used-car-prices-endpoint
 description: Used car price online endpoint
 auth_mode: key
