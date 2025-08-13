@@ -1,10 +1,10 @@
 $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
 name: blue
-endpoint_name: used-car-prices-deploy-env
-model: azureml:used-cars-price-model@latest
+endpoint_name: used-car-price-endpoint
+model: azureml:used-car-price-model@latest
 code_configuration:
   code: ../../deploy/online/
   scoring_script: score.py
-  environment: azureml:used-cars-train-env@latest
+  environment: azureml:used-car-price-deploy-env@latest
   instance_type: Standard_F4s_v2
   instance_count: 1
