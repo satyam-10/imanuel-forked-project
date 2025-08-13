@@ -1,6 +1,6 @@
 $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
 name: blue
-endpoint_name: used-car-price-endpoint
+endpoint_name: used-car-prices-deploy-env
 model: azureml:used-cars-price-model@latest
 code_configuration:
   code: ../../deploy/online/
