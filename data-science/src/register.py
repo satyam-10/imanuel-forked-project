@@ -36,7 +36,7 @@ def main(args):
     # Register logged model using mlflow
     run_id = mlflow.active_run().info.run_id
     model_uri = f'runs:/{run_id}/{args.model_name}'
-    mlflow_model = mlflow.model_uri(model_uri, args.model_name)  # register the model with model_uri and model_name
+    mlflow_model = mlflow.register_model(model_uri, args.model_name)  # register the model with model_uri and model_name
     model_version = mlflow_model.version  # Get the version of the registered model
 
     # Write model info
@@ -44,7 +44,7 @@ def main(args):
     model_info = {"id": f"{args.model_name}:{model_version}"}
     output_path = os.path.join(args.model_info_output_path, "model_info.json")  # Specify the name of the JSON file (model_info.json)
     with open(output_path, "w") as of:
-        json.model_info(model_info, of)  # write model_info to the output file
+        json.dump(model_info, of)  # write model_info to the output file
 
 if __name__ == "__main__":
     
