@@ -70,6 +70,11 @@ jobs:
   register_model:
     name: register_model  # Provide the job name
     display_name: Register Model  # Provide the display name for the job
+    inputs:
+      model_name: "used-car-price-model"
+      model_path: ${{parent.jobs.sweep_step.outputs.model_output}}
+    outputs:
+      model_info_output_path: ${{parent.outputs.model_info_output_path}}
     code: ../../../data-science/src
     command: >-
       python register.py 
@@ -77,9 +82,4 @@ jobs:
       --model_path ${{inputs.model_path}} 
       --model_info_output_path ${{outputs.model_info_output_path}}
     environment: azureml:used-car-deploy-env@latest
-    inputs:
-      model_name: "used-car-price-model"
-      model_path: ${{parent.jobs.sweep_step.outputs.model_output}}
-    outputs:
-      model_info_output_path: ${{parent.outputs.model_info_output_path}}
 
