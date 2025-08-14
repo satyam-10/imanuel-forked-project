@@ -26,4 +26,4 @@ command: >-
   --max_depth ${{inputs.max_depth}}
   --model_output ${{outputs.model_output}}
 #environment: azureml:used-car-train-env@latest
-environment: file:../../train/train-env.yml
+environment: file: train-env.yml
