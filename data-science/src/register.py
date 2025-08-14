@@ -9,6 +9,9 @@ from pathlib import Path
 import mlflow
 import os 
 import json
+from pipeline_logger import PipelineLogger
+
+logger = PipelineLogger(log_file="pipeline.log")
 
 def parse_args():
     '''Parse input arguments'''
@@ -24,31 +27,37 @@ def parse_args():
 
 def main(args):
     '''Loads the best-trained model from the sweep job and registers it'''
-
-    print("Registering ", args.model_name)
-
-
-    if not os.path.exists(args.model_path):
-        raise FileNotFoundError(f"Model file not found at: {args.model_path}")
+    step_name = "Loads the best-trained model from the sweep job and registers it"
+    logger.log_start(step_name)
+    try:
+        print("Registering ", args.model_name)
     
-    # Load model
-    model = mlflow.sklearn.load_model(args.model_path)  # Load the model from model_path
-
-    # Log model using mlflow
-    mlflow.sklearn.log_model(model, args.model_name)  # Log the model using with model_name
-
-    # Register logged model using mlflow
-    run_id = mlflow.active_run().info.run_id
-    model_uri = f'runs:/{run_id}/{args.model_name}'
-    mlflow_model = mlflow.register_model(model_uri, args.model_name)  # register the model with model_uri and model_name
-    model_version = mlflow_model.version  # Get the version of the registered model
-
-    # Write model info
-    print("Writing JSON")
-    model_info = {"id": f"{args.model_name}:{model_version}"}
-    output_path = os.path.join(args.model_info_output_path, "model_info.json")  # Specify the name of the JSON file (model_info.json)
-    with open(output_path, "w") as of:
-        json.dump(model_info, of)  # write model_info to the output file
+        logger.log_message(f"Registering Model Name: {args.model_name}, at the path: {args.model_path}")
+        if not os.path.exists(args.model_path):
+            raise FileNotFoundError(f"Model file not found at: {args.model_path}")
+        
+        # Load model
+        model = mlflow.sklearn.load_model(args.model_path)  # Load the model from model_path
+    
+        # Log model using mlflow
+        mlflow.sklearn.log_model(model, args.model_name)  # Log the model using with model_name
+    
+        # Register logged model using mlflow
+        run_id = mlflow.active_run().info.run_id
+        model_uri = f'runs:/{run_id}/{args.model_name}'
+        mlflow_model = mlflow.register_model(model_uri, args.model_name)  # register the model with model_uri and model_name
+        model_version = mlflow_model.version  # Get the version of the registered model
+    
+        # Write model info
+        print("Writing JSON")
+        model_info = {"id": f"{args.model_name}:{model_version}"}
+        output_path = os.path.join(args.model_info_output_path, "model_info.json")  # Specify the name of the JSON file (model_info.json)
+        with open(output_path, "w") as of:
+            json.dump(model_info, of)  # write model_info to the output file
+        logger.log_success(step_name)
+    except Exception as e:
+        logger.log_failure(step_name, e)
+        sys.exit(1)
 
 if __name__ == "__main__":
     
