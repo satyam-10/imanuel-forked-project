@@ -27,6 +27,10 @@ def main(args):
 
     print("Registering ", args.model_name)
 
+
+    if not os.path.exists(args.model_path):
+        raise FileNotFoundError(f"Model file not found at: {args.model_path}")
+    
     # Load model
     model = mlflow.sklearn.load_model(args.model_path)  # Load the model from model_path
 
