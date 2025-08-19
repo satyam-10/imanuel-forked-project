@@ -53,17 +53,6 @@ jobs:
     secrets:
       creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
 
-  register-environment-deploy:
-    needs: get-config
-    uses: imanuelsammeta/mlops-templates/.github/workflows/register-environment.yml@main
-    with:
-      resource_group: ${{needs.get-config.outputs.resource_group}}
-      workspace_name: ${{needs.get-config.outputs.aml_workspace}}
-      environment_file: mlops/azureml/deploy/online/deploy-env.yml
-      conda_file: data-science/environment/deploy-conda.yml
-    secrets:
-      creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
-
   run-pipeline:
     needs: [get-config,register-environment,create-compute,register-dataset]
     uses: imanuelsammeta/mlops-templates/.github/workflows/run-pipeline.yml@main
@@ -75,6 +64,16 @@ jobs:
     secrets:
       creds: ${{ secrets.AZURE_CREDENTIALS_2 }
 
+  register-environment-deploy:
+    needs: get-config
+    uses: imanuelsammeta/mlops-templates/.github/workflows/register-environment.yml@main
+    with:
+      resource_group: ${{needs.get-config.outputs.resource_group}}
+      workspace_name: ${{needs.get-config.outputs.aml_workspace}}
+      environment_file: mlops/azureml/deploy/online/deploy-env.yml
+      conda_file: data-science/environment/deploy-conda.yml
+    secrets:
+      creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
 
   create-endpoint:
     needs: [get-config,run-pipeline]
