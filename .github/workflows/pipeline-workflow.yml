@@ -62,7 +62,7 @@ jobs:
       parameters-file: mlops/azureml/train/pipeline.yml
       job-name: test
     secrets:
-      creds: ${{ secrets.AZURE_CREDENTIALS_2 }
+      creds: ${{ secrets.AZURE_CREDENTIALS_2 }}
 
   register-environment-deploy:
     needs: get-config
