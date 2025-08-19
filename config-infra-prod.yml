@@ -19,4 +19,5 @@ variables:
 
   # For pipeline reference
   resource_group: default_resource_group
-  aml_workspace: FitwellWorkspace
+  aml_workspace: april_workspace
+
